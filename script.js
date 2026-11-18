@@ -14,8 +14,10 @@
     name: '',        // contoh: 'Nama Kamu'
     city: '',        // contoh: 'Makassar'
     bio: '',         // bio singkat
-    instagram: '',   // contoh: '@username' atau link penuh
-    whatsapp: '',    // contoh: '081234567890'
+    instagram: '@abdkupang_',
+    whatsapp: '082196481822',
+    facebook: 'https://www.facebook.com/share/1DQN53G2sT/',
+    tiktok: '@abdkupang',
     refCode: '',     // kode referral pendaftaran
     registerUrl: '', // link daftar creator (sertakan kode ref di link)
     proofUrl: ''     // link bukti hadiah di Instagram
@@ -47,7 +49,7 @@
       const d = noiseBuf.getChannelData(0);
       for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
     }
-    const ok = () => ctx && !muted && ctx.state !== 'closed';
+    const ok = () => ctx && !muted && ctx.state === 'running';
 
     function tone({ f = 440, f2, d = .1, type = 'sine', v = .2, at = 0 }) {
       if (!ok()) return;
@@ -100,7 +102,7 @@
       play(name) { (bank[name] || bank.click)(); },
       get muted() { return muted; },
       setMuted(v) { muted = !!v; },
-      get ready() { return !!ctx; }
+      get running() { return !!ctx && ctx.state === 'running'; }
     };
   })();
   const sfx = n => audio.play(n);
@@ -142,12 +144,13 @@
     if (!v) return '';
     if (key === 'whatsapp') { const d = v.replace(/\D/g, '').replace(/^0/, '62'); return d ? 'https://wa.me/' + d : ''; }
     if (key === 'instagram') return /^https?:/.test(v) ? v : 'https://instagram.com/' + v.replace(/^@/, '');
+    if (key === 'tiktok') return /^https?:/.test(v) ? v : 'https://www.tiktok.com/@' + v.replace(/^@/, '');
     return v;
   }
   $$('[data-cfg]').forEach(el => {
     const k = el.dataset.cfg, v = (CFG[k] || '').trim();
     if (!v) return;
-    el.textContent = (k === 'instagram' && !/^https?:|^@/.test(v)) ? '@' + v : v;
+    el.textContent = ((k === 'instagram' || k === 'tiktok') && !/^https?:|^@/.test(v)) ? '@' + v : v;
     el.classList.add('is-filled');
   });
   $$('[data-cfg-link]').forEach(a => {
@@ -161,9 +164,10 @@
     });
   });
 
-  /* ---------- 4. GERBANG MASUK ---------- */
-  const gate = $('#gate'), curtain = $('#curtain');
+  /* ---------- 4. MULAI (tanpa gerbang, suara aktif secara default) ---------- */
+  const curtain = $('#curtain');
   const soundBtn = $('#soundToggle');
+  try { if (localStorage.getItem('bs-muted') === '1') audio.setMuted(true); } catch (_) {}
 
   function renderSound() {
     const on = !audio.muted;
@@ -181,36 +185,36 @@
     curtain.className = 'curtain';
   }
 
-  let entered = false;
-  async function enterSite(withSound) {
-    if (entered) return;
-    entered = true;
+  // Browser menahan suara sampai ada sentuhan/klik pertama. Setelah itu langsung aktif.
+  const unlockEvents = ['pointerdown', 'pointerup', 'touchend', 'keydown', 'click'];
+  function unlock() {
     audio.init();
-    audio.setMuted(!withSound);
-    renderSound();
-    sfx('whoosh');
-    await wipe(() => {
-      gate.classList.add('is-gone');
-      body.classList.remove('is-locked');
-      window.scrollTo(0, 0);
-      body.classList.add('is-ready');
-      scheduleIntroSound();
-    });
-    const t = $('#heroTitle'); if (t) t.removeAttribute('aria-hidden');
+    if (audio.running) unlockEvents.forEach(ev => removeEventListener(ev, unlock, true));
   }
+  unlockEvents.forEach(ev => addEventListener(ev, unlock, true));
+
+  let entered = false;
   function scheduleIntroSound() {
     if (RM) return;
     $$('.hero__title .ch').forEach((c, i) => setTimeout(() => audio.note(i % 8, { d: .2, v: .09 }), 250 + i * 55 + 120));
     setTimeout(() => sfx('success'), 1350);
   }
-  $('#gateSound').addEventListener('click', () => enterSite(true));
-  $('#gateMute').addEventListener('click', () => enterSite(false));
-  $('#gateSound').focus({ preventScroll: true });
+  async function start() {
+    if (document.fonts && document.fonts.status !== 'loaded') await Promise.race([document.fonts.ready, wait(1500)]);
+    body.classList.remove('is-locked');
+    window.scrollTo(0, 0);
+    body.classList.add('is-ready');
+    if (RM) curtain.className = 'curtain';
+    else { curtain.className = 'curtain out'; setTimeout(() => { curtain.className = 'curtain'; }, 900); }
+    scheduleIntroSound();
+    entered = true;
+  }
 
   soundBtn.addEventListener('click', () => {
     audio.init();
     if (!audio.muted) { sfx('off'); audio.setMuted(true); toast('Suara dimatikan'); }
     else { audio.setMuted(false); sfx('success'); toast('Suara dinyalakan'); }
+    try { localStorage.setItem('bs-muted', audio.muted ? '1' : '0'); } catch (_) {}
     renderSound();
   });
 
@@ -220,7 +224,7 @@
   document.addEventListener('pointerover', e => {
     if (e.pointerType !== 'mouse') return;
     const el = e.target.closest(INTERACTIVE + ', .tip, .cat, .step, .reward');
-    if (!el || el === lastHover || el.closest('.gate')) { if (!el) lastHover = null; return; }
+    if (!el || el === lastHover) { if (!el) lastHover = null; return; }
     lastHover = el;
     const now = performance.now();
     if (now - lastHoverT > 70) { sfx('hover'); lastHoverT = now; }
@@ -243,7 +247,7 @@
     if (!e.target.closest(INTERACTIVE + ', [data-sticker], .ch, .video')) sfx('tap');
   }, { passive: true });
   document.addEventListener('focusin', e => {
-    if (e.target.matches && e.target.matches(':focus-visible') && !e.target.closest('.gate')) sfx('tick');
+    if (e.target.matches && e.target.matches(':focus-visible')) sfx('tick');
   });
 
   /* ---------- 5. TRANSISI HALAMAN (tirai) ---------- */
@@ -702,5 +706,6 @@
   measureRibbons();
   onScroll();
   requestAnimationFrame(loop);
+  start();
   addEventListener('load', () => { measureRibbons(); onScroll(); });
 })();
