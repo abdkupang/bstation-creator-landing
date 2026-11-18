@@ -219,7 +219,7 @@
   });
 
   /* ---------- Suara global ---------- */
-  const INTERACTIVE = 'a, button, [role="tab"]';
+  const INTERACTIVE = 'a, button, summary, [role="tab"]';
   let lastHover = null, lastHoverT = 0;
   document.addEventListener('pointerover', e => {
     if (e.pointerType !== 'mouse') return;
@@ -673,6 +673,15 @@
   });
   placeTabInd();
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { placeTabInd(); placePill(); measureRibbons(); onScroll(); });
+
+  // FAQ: satu jawaban terbuka pada satu waktu
+  const faqItems = $$('.faq__item');
+  faqItems.forEach(d => d.addEventListener('toggle', () => {
+    if (d.open) {
+      audio.note(faqItems.indexOf(d) % 8 + 2, { d: .3, v: .18 });
+      faqItems.forEach(o => { if (o !== d) o.open = false; });
+    }
+  }));
 
   // salin hashtag dan kode ref
   async function copy(text) {
