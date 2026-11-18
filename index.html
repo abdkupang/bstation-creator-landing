@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Jadi creator Bstation: daftar, upload, raih hadiah</title>
+<meta name="description" content="Bergabung jadi creator Bstation. Panduan memulai, hadiah mingguan dan bulanan, kategori konten, serta syarat pendaftaran.">
+<meta name="theme-color" content="#F6F7FB">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-theme="paper" class="is-locked">
+<a class="skip" href="#main">Lewati ke konten</a>
+
+<!-- Transisi halaman -->
+<div class="curtain" id="curtain" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+
+<!-- Gerbang masuk (juga membuka izin suara browser) -->
+<div class="gate" id="gate" role="dialog" aria-labelledby="gateTitle">
+  <div class="gate__blob gate__blob--a"></div>
+  <div class="gate__blob gate__blob--b"></div>
+  <div class="gate__inner">
+    <p class="gate__title" id="gateTitle">Siap jadi<br>creator?</p>
+    <button class="btn btn--ink btn--lg" id="gateSound" data-sfx="none" type="button">Masuk dengan suara</button>
+    <button class="gate__mute" id="gateMute" data-sfx="none" type="button">Masuk tanpa suara</button>
+    <p class="gate__hint">Halaman ini penuh efek suara. Matikan kapan saja lewat tombol speaker di pojok atas.</p>
+  </div>
+</div>
+
+<div class="progress" id="progress" aria-hidden="true"></div>
+<div class="cursor" id="cursor" aria-hidden="true"><span class="cursor__dot"></span><span class="cursor__ring"><span class="cursor__label"></span></span></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<!-- Navigasi -->
+<header class="nav" id="nav">
+  <a class="nav__logo" href="#top" data-nav data-sfx="pop" aria-label="Ke atas">
+    <span class="nav__mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 7l8 5-8 5z" fill="currentColor"/></svg></span>
+    <span class="nav__name">Bstation <b>Creator</b></span>
+  </a>
+  <nav class="nav__links" id="navLinks" aria-label="Navigasi utama">
+    <span class="nav__pill" id="navPill"></span>
+    <a href="#kenapa" data-nav>Kenapa</a>
+    <a href="#tips" data-nav>Tips</a>
+    <a href="#hadiah" data-nav>Hadiah</a>
+    <a href="#kategori" data-nav>Kategori</a>
+    <a href="#daftar" data-nav>Syarat</a>
+  </nav>
+  <div class="nav__actions">
+    <button class="sound" id="soundToggle" type="button" aria-pressed="true" aria-label="Suara aktif" data-sfx="none">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z" fill="currentColor"/></svg>
+      <span class="sound__bars" aria-hidden="true"><i></i><i></i><i></i></span>
+    </button>
+    <a class="btn btn--pink btn--sm nav__cta" href="#daftar" data-nav data-magnetic>Daftar</a>
+    <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="menu" aria-label="Buka menu" data-sfx="none"><span></span><span></span></button>
+  </div>
+</header>
+
+<div class="menu" id="menu" aria-hidden="true">
+  <nav class="menu__links" aria-label="Menu seluler">
+    <a href="#kenapa" data-nav style="--i:0">Kenapa Bstation</a>
+    <a href="#tips" data-nav style="--i:1">Tips memulai</a>
+    <a href="#hadiah" data-nav style="--i:2">Hadiah</a>
+    <a href="#kategori" data-nav style="--i:3">Kategori</a>
+    <a href="#daftar" data-nav style="--i:4">Syarat dan daftar</a>
+  </nav>
+  <p class="menu__foot">Anime, game, cosplay, dance.</p>
+</div>
+
+<main id="main">
+
+<!-- HERO -->
+<section class="hero" id="top" data-theme="paper">
+  <div class="hero__grid" aria-hidden="true"></div>
+
+  <div class="stickers" id="stickers" aria-hidden="true">
+    <div class="sticker s-play" data-depth="0.9"><div class="sticker__body" data-sticker="0">
+      <svg viewBox="0 0 120 120"><rect x="8" y="8" width="104" height="104" rx="30" fill="#FF4F81" stroke="#15131B" stroke-width="5"/><path d="M48 38L84 60L48 82Z" fill="#fff" stroke="#15131B" stroke-width="5" stroke-linejoin="round"/></svg>
+    </div></div>
+    <div class="sticker s-burst" data-depth="1.3"><div class="sticker__body spin" data-sticker="1">
+      <svg viewBox="0 0 120 120"><polygon points="60,6 74.5,24.9 98.2,21.8 95.1,45.5 114,60 95.1,74.5 98.2,98.2 74.5,95.1 60,114 45.5,95.1 21.8,98.2 24.9,74.5 6,60 24.9,45.5 21.8,21.8 45.5,24.9" fill="#FFD43B" stroke="#15131B" stroke-width="5" stroke-linejoin="round"/><text x="60" y="69" text-anchor="middle" font-family="Bricolage Grotesque, sans-serif" font-weight="800" font-size="26" fill="#15131B">GO!</text></svg>
+    </div></div>
+    <div class="sticker s-pad" data-depth="1.1"><div class="sticker__body" data-sticker="2">
+      <svg viewBox="-4 -4 148 108"><path d="M34 12H106C124 12 134 26 136 42L140 70C142 86 120 94 110 80L102 68H38L30 80C20 94-2 86 0 70L4 42C6 26 16 12 34 12Z" fill="#2DB4FF" stroke="#15131B" stroke-width="5" stroke-linejoin="round"/><path d="M30 30H38V38H46V46H38V54H30V46H22V38H30Z" fill="#15131B"/><circle cx="100" cy="34" r="7" fill="#FF4F81" stroke="#15131B" stroke-width="3.5"/><circle cx="114" cy="48" r="7" fill="#FFD43B" stroke="#15131B" stroke-width="3.5"/></svg>
+    </div></div>
+    <div class="sticker s-mic" data-depth="0.7"><div class="sticker__body" data-sticker="3">
+      <svg viewBox="0 0 80 130"><rect x="22" y="6" width="36" height="62" rx="18" fill="#fff" stroke="#15131B" stroke-width="5"/><path d="M28 24H52M28 34H52M28 44H52" stroke="#FF4F81" stroke-width="4" stroke-linecap="round"/><path d="M12 52V60A28 28 0 0 0 68 60V52M40 88V114M24 118H56" fill="none" stroke="#15131B" stroke-width="5" stroke-linecap="round"/></svg>
+    </div></div>
+    <div class="sticker s-heart" data-depth="1.0"><div class="sticker__body" data-sticker="4">
+      <svg viewBox="0 0 120 114"><path d="M60 104C20 76 8 52 8 36C8 20 20 10 34 10C45 10 54 16 60 26C66 16 75 10 86 10C100 10 112 20 112 36C112 52 100 76 60 104Z" fill="#FF8FB0" stroke="#15131B" stroke-width="5" stroke-linejoin="round"/></svg>
+    </div></div>
+    <div class="sticker s-coin" data-depth="0.8"><div class="sticker__body" data-sticker="5">
+      <svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="54" fill="#FFD43B" stroke="#15131B" stroke-width="5"/><circle cx="60" cy="60" r="40" fill="none" stroke="#15131B" stroke-width="3" stroke-dasharray="4 7" stroke-linecap="round"/><text x="60" y="70" text-anchor="middle" font-family="Bricolage Grotesque, sans-serif" font-weight="800" font-size="30" fill="#15131B">50K</text></svg>
+    </div></div>
+    <div class="sticker s-bubble" data-depth="1.2"><div class="sticker__body" data-sticker="6">
+      <span class="bubble">Hadir kak! 👋</span>
+    </div></div>
+    <div class="sticker s-rec" data-depth="0.6"><div class="sticker__body" data-sticker="7">
+      <span class="rec"><i></i>REC</span>
+    </div></div>
+  </div>
+
+  <div class="hero__content">
+    <p class="badge"><span class="badge__dot"></span>Undangan eksklusif Bstation Creator</p>
+    <h1 class="hero__title" id="heroTitle" aria-label="Jadilah creator">
+      <span class="line" aria-hidden="true"><span class="word" data-letters>JADILAH</span></span>
+      <span class="line" aria-hidden="true"><span class="word" data-letters>CREATOR</span></span>
+    </h1>
+    <p class="hero__sub">Bagikan passion-mu lewat video, bangun komunitas, dan dapatkan penghasilan bersama platform anime dan game terbesar.</p>
+    <div class="hero__cta">
+      <a class="btn btn--pink btn--lg" href="#daftar" data-nav data-magnetic data-cursor="Daftar">Daftar sekarang</a>
+      <a class="btn btn--ghost btn--lg" href="#hadiah" data-nav data-magnetic data-cursor="Lihat">Lihat hadiah</a>
+    </div>
+  </div>
+  <div class="hero__scroll" aria-hidden="true"><span></span></div>
+</section>
+
+<!-- RIBBON -->
+<section class="ribbons" aria-label="Kategori dan hashtag" data-theme="paper">
+  <div class="ribbon ribbon--pink" data-dir="-1"><div class="ribbon__track">
+    <span>Anime</span><i>✦</i><span>Game</span><i>✦</i><span>Cosplay</span><i>✦</i><span>Dance</span><i>✦</i><span>AMV</span><i>✦</i><span>Dubbing</span><i>✦</i><span>Review</span><i>✦</i><span>Gameplay</span><i>✦</i>
+  </div></div>
+  <div class="ribbon ribbon--ink" data-dir="1"><div class="ribbon__track">
+    <span>#TrendingHunt</span><i>✦</i><span>#BstationGamers</span><i>✦</i><span>#Bestofbest</span><i>✦</i><span>#TrendingHunt</span><i>✦</i><span>#BstationGamers</span><i>✦</i><span>#Bestofbest</span><i>✦</i>
+  </div></div>
+</section>
+
+<!-- KENAPA BSTATION -->
+<section class="sec why" id="kenapa" data-theme="paper">
+  <div class="wrap">
+    <h2 class="h2" data-split>Platform kreator yang terus tumbuh</h2>
+    <p class="why__text" id="whyText" data-scrub>Bstation adalah rumah bagi para kreator konten anime, game, dan hiburan. Upload video, bangun pengikut, dan dapatkan Hadiah dan Monetisasi dari konten yang kamu cintai.</p>
+    <ol class="steps" data-group>
+      <li class="step step--pink" data-reveal><span class="step__i">1</span><b>Upload video</b><span>Mulai dari konten yang kamu suka.</span></li>
+      <li class="step step--sky" data-reveal><span class="step__i">2</span><b>Bangun pengikut</b><span>Komunitas tumbuh dari interaksi.</span></li>
+      <li class="step step--sun" data-reveal><span class="step__i">3</span><b>Raih hadiah</b><span>Hadiah dan monetisasi menunggu.</span></li>
+    </ol>
+  </div>
+</section>
+
+<!-- TIPS -->
+<section class="sec tips" id="tips" data-theme="blush">
+  <div class="wrap">
+    <h2 class="h2" data-split>5 tips memulai sebagai creator baru</h2>
+    <div class="tips__progress" aria-live="polite">
+      <div class="tips__bar"><span id="tipsBar"></span></div>
+      <p id="tipsCount">Centang tips yang sudah kamu coba. 0 dari 5.</p>
+    </div>
+    <div class="tips__grid" data-group>
+      <article class="tip tip--pink" data-tilt data-reveal>
+        <span class="tip__icon" aria-hidden="true">🔎</span>
+        <h3>Cari creator aktif</h3>
+        <p>Temukan creator yang <em>aktif upload video</em> dan ajak mereka saling support. Creator aktif = komunitas yang hidup dan penonton yang terus datang.</p>
+        <button class="tip__check" type="button" aria-pressed="false" data-sfx="none"><span class="tip__box"></span>Sudah kucoba</button>
+      </article>
+      <article class="tip tip--sky" data-tilt data-reveal>
+        <span class="tip__icon" aria-hidden="true">💬</span>
+        <h3>Komen dan interaksi</h3>
+        <p>Tinggalkan komentar bermakna seperti <em>"Hadir kak, semangat terus, yuk saling support"</em>. Bukan spam, tapi koneksi nyata yang membangun jaringan.</p>
+        <button class="tip__check" type="button" aria-pressed="false" data-sfx="none"><span class="tip__box"></span>Sudah kucoba</button>
+      </article>
+      <article class="tip tip--sun" data-tilt data-reveal>
+        <span class="tip__icon" aria-hidden="true">🤝</span>
+        <h3>Follow balik</h3>
+        <p>Kunjungi daftar pengikut creator aktif, ikuti mereka, dan undang mereka untuk saling mengikuti. Algoritma Bstation menyukai engagement tinggi.</p>
+        <button class="tip__check" type="button" aria-pressed="false" data-sfx="none"><span class="tip__box"></span>Sudah kucoba</button>
+      </article>
+      <article class="tip tip--mint" data-tilt data-reveal>
+        <span class="tip__icon" aria-hidden="true">📅</span>
+        <h3>Upload konsisten</h3>
+        <p>Video pertamamu tidak harus sempurna, yang penting <em>rutin</em>. Creator yang upload 2 sampai 3 kali seminggu tumbuh jauh lebih cepat dari yang menunggu sempurna.</p>
+        <button class="tip__check" type="button" aria-pressed="false" data-sfx="none"><span class="tip__box"></span>Sudah kucoba</button>
+      </article>
+      <article class="tip tip--white" data-tilt data-reveal>
+        <span class="tip__icon" aria-hidden="true">🎯</span>
+        <h3>Konten niche</h3>
+        <p>Fokus pada satu topik (MLBB, anime review, gameplay, dll). Penonton Bstation loyal pada creator yang punya identitas jelas dan konsisten.</p>
+        <button class="tip__check" type="button" aria-pressed="false" data-sfx="none"><span class="tip__box"></span>Sudah kucoba</button>
+      </article>
+    </div>
+    <p class="tips__done" id="tipsDone" hidden>Lengkap. Kamu siap, <a href="#daftar" data-nav>lanjut ke pendaftaran</a>.</p>
+  </div>
+</section>
+
+<!-- TUTORIAL -->
+<section class="sec tutorial" id="tutorial" data-theme="paper">
+  <div class="wrap wrap--narrow">
+    <h2 class="h2 h2--center" data-split>Cara menjadi creator di Bstation</h2>
+    <div class="video" id="video" data-yt="XSIHc08hn14" data-reveal>
+      <img src="https://img.youtube.com/vi/XSIHc08hn14/maxresdefault.jpg" alt="Cuplikan video panduan menjadi creator Bstation" loading="lazy">
+      <button class="video__play" type="button" aria-label="Putar video panduan" data-sfx="none" data-cursor="Putar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></button>
+    </div>
+    <p class="center"><a class="link" href="https://youtu.be/XSIHc08hn14?si=GK_IcovnBMKQVCUt" target="_blank" rel="noopener">Buka di YouTube</a></p>
+  </div>
+</section>
+
+<!-- HADIAH -->
+<section class="sec rewards" id="hadiah" data-theme="sky">
+  <div class="wrap">
+    <h2 class="h2" data-split>2 hadiah tetap yang bisa kamu raih</h2>
+    <p class="lead">Ada 2 hadiah tetap yang bisa kamu raih setiap bulan dan minggu, belum termasuk event bonus yang hadiahnya bisa lebih besar lagi.</p>
+
+    <div class="rewards__grid" data-group>
+      <article class="reward reward--light" data-tilt data-reveal>
+        <span class="reward__tag">Hadiah 1</span>
+        <p class="reward__up">Up to</p>
+        <p class="reward__num"><span data-count="300">300</span><small>K</small></p>
+        <h3>MAC, Monthly Active Creator</h3>
+        <p>Gunakan <b>hashtag grup</b> kamu setiap upload. Setelah lolos seleksi, kamu akan mendapat hashtag khusus sesuai kategori grupmu.</p>
+      </article>
+      <article class="reward reward--dark" data-tilt data-reveal>
+        <span class="reward__tag">Hadiah 2</span>
+        <p class="reward__up">Up to</p>
+        <p class="reward__num"><span data-count="200">200</span><small>K</small></p>
+        <h3>Weekly, setiap minggu</h3>
+        <p>Gunakan hashtag <b>#TrendingHunt</b> di setiap konten. Pemenang diumumkan tiap minggu, <b>Rp50.000</b> per pemenang. Syarat: lolos seleksi terlebih dahulu.</p>
+        <a class="link link--light" href="https://www.instagram.com/bstation_creator_id?igsh=Y2hiYzVqdGh3enpw" target="_blank" rel="noopener">Pengumuman di @bstation_creator_id</a>
+      </article>
+    </div>
+
+    <div class="physical" data-reveal>
+      <h3>Hadiah fisik eksklusif</h3>
+      <ul class="chips" id="prizeChips">
+        <li><button type="button" data-sfx="none" data-note="0">📱 HP</button></li>
+        <li><button type="button" data-sfx="none" data-note="1">💻 Laptop</button></li>
+        <li><button type="button" data-sfx="none" data-note="2">🎙️ Mic</button></li>
+        <li><button type="button" data-sfx="none" data-note="3">📷 Kamera</button></li>
+        <li><button type="button" data-sfx="none" data-note="4">👕 Merchandise</button></li>
+        <li><button type="button" data-sfx="none" data-note="5">✨ dan masih banyak lagi</button></li>
+      </ul>
+      <a class="btn btn--ink" href="#" data-cfg-link="proofUrl" data-placeholder-msg="Link bukti hadiah belum diisi.">Lihat bukti hadiah di Instagram</a>
+    </div>
+    <p class="note">Hadiah di atas belum termasuk event tambahan yang bisa memberikan reward lebih besar.</p>
+  </div>
+</section>
+
+<!-- KATEGORI -->
+<section class="sec cats" id="kategori" data-theme="paper">
+  <div class="wrap">
+    <h2 class="h2" data-split>Pilih jalurmu</h2>
+    <p class="lead">Tiga kelompok kategori konten yang tersedia. Ketuk contoh untuk melihat kanal creator di Bstation.</p>
+
+    <div class="tabs" role="tablist" aria-label="Kelompok kategori" id="tabs">
+      <span class="tabs__ind" id="tabsInd"></span>
+      <button class="tabs__btn is-active" role="tab" id="tab-anime" aria-selected="true" aria-controls="panel-anime" type="button" data-sfx="none">Anime <small>8</small></button>
+      <button class="tabs__btn" role="tab" id="tab-game" aria-selected="false" aria-controls="panel-game" type="button" tabindex="-1" data-sfx="none">Game <small>6</small></button>
+      <button class="tabs__btn" role="tab" id="tab-other" aria-selected="false" aria-controls="panel-other" type="button" tabindex="-1" data-sfx="none">Lainnya <small>5</small></button>
+    </div>
+
+    <div class="panels" id="panels">
+      <div class="panel is-active" role="tabpanel" id="panel-anime" aria-labelledby="tab-anime">
+        <article class="cat" style="--i:0"><h3>Technical Cut</h3><p>Edit video anime mengikuti ritme musik dengan teknis tinggi. Transisi, pergerakan karakter, dan efek harus sinkron dengan beat.</p><a href="https://www.bilibili.tv/id/space/1452405575" target="_blank" rel="noopener">Lihat contoh</a></article>
+        <article class="cat" style="--i:1"><h3>AMV</h3><p>Edit video anime dengan musik baru sesuai kreativitas sendiri. Bebas dari batasan jenis musik maupun level editing.</p><a href="https://www.bilibili.tv/id/space/1295939721" target="_blank" rel="noopener">Lihat contoh</a></article>
+        <article class="cat" style="--i:2"><h3>Anime General</h3><p>Cover musik, parodi anime, reupload berita, atau potongan anime dengan ide cerita baru.</p><a href="https://www.bilibili.tv/id/space/2036008369" target="_blank" rel="noopener">Lihat contoh</a></article>
+        <article class="cat" style="--i:3"><h3>Anime Dubbing</h3><p>Dubbing adegan anime dengan suara asli kreator. Bisa mengikuti naskah asli atau fanmade.</p><a href="https://www.bilibili.tv/id/space/1291789490" target="_blank" rel="noopener">Lihat contoh</a></article>
+        <article class="cat" style="--i:4"><h3>Vomic dan Dynamic Comics</h3><p>Menambahkan dubbing ke gambar manga (Voice Comic) dengan gerakan sederhana seperti bibir atau transisi scene.</p><a href="https://www.bilibili.tv/id/space/1064036708" target="_blank" rel="noopener">Lihat contoh</a></article>
+        <article class="cat" style="--i:5"><h3>Fan Animation</h3><p>Animasi buatan penggemar berdasarkan karakter anime, manga, atau game. Digambar dan dianimasikan sendiri oleh kreator.</p><a href="https://www.bilibili.tv/id/space/1304671734" target="_blank" rel="noopener">Lihat contoh</a></article>
+        <article class="cat" style="--i:6"><h3>Anime Review</h3><p>Rekomendasi, analisis, top list anime, update info terbaru, hingga video reaksi anime.</p><a href="https://www.bilibili.tv/id/space/1449250068" target="_blank" rel="noopener">Lihat contoh</a></article>
+        <article class="cat" style="--i:7"><h3>Anime Drawings</h3><p>Proses menggambar karakter anime, tutorial, atau showcase karya seni dengan gaya anime.</p><a href="https://www.bilibili.tv/id/space/1214123443" target="_blank" rel="noopener">Lihat contoh</a></article>
+      </div>
+
+      <div class="panel" role="tabpanel" id="panel-game" aria-labelledby="tab-game" hidden>
+        <article class="cat" style="--i:0"><h3>Livestream dan Recording</h3><p>Klip rekaman layar atau streaming gameplay dengan editan minimal, sesekali pakai voice over.</p><a href="https://www.bilibili.tv/id/space/1001862399" target="_blank" rel="noopener">Lihat contoh</a></article>
+        <article class="cat" style="--i:1"><h3>Creative Gaming Edits</h3><p>Video game yang diedit berat: GMV, highlight edit, mashup gameplay dengan musik. Butuh skill editing tinggi.</p><a href="https://www.bilibili.tv/id/space/1965256879" target="_blank" rel="noopener">Lihat contoh</a></article>
+        <article class="cat" style="--i:2"><h3>Funny Moments dan Memes</h3><p>Momen lucu dalam game, meme video game, atau konten hiburan ringan seputar dunia gaming.</p><a href="https://www.bilibili.tv/id/space/2044435713" target="_blank" rel="noopener">Lihat contoh</a></article>
+        <article class="cat" style="--i:3"><h3>Review dan Analyses</h3><p>Analisis atau ulasan game, mulai dari gameplay, alur cerita, peralatan, hingga komentar produksi.</p><a href="https://www.bilibili.tv/id/space/2036474440" target="_blank" rel="noopener">Lihat contoh</a></article>
+        <article class="cat" style="--i:4"><h3>Strategy dan Tutorials</h3><p>Tutorial gameplay dan panduan menyelesaikan misi. Cocok untuk creator yang suka berbagi ilmu.</p><a href="https://www.bilibili.tv/id/space/1541288783" target="_blank" rel="noopener">Lihat contoh</a></article>
+        <article class="cat" style="--i:5"><h3>News dan Interviews</h3><p>Berita game terbaru, cuplikan, video promosi resmi, atau wawancara developer.</p><a href="https://www.bilibili.tv/id/space/1290761856" target="_blank" rel="noopener">Lihat contoh</a></article>
+      </div>
+
+      <div class="panel" role="tabpanel" id="panel-other" aria-labelledby="tab-other" hidden>
+        <article class="cat" style="--i:0"><h3>Cosplay dan Comic-Con</h3><p>Konten seputar cosplay dan event anime, comic, atau game, dari proses pembuatan kostum hingga dokumentasi event.</p><a href="https://www.bilibili.tv/id/space/1892393495" target="_blank" rel="noopener">Lihat contoh</a></article>
+        <article class="cat" style="--i:1"><h3>Movie Review</h3><p>Review film, drama, atau series (non-anime). Minimal 3 menit, sangat disarankan format alur cerita atau story recap.</p><a href="https://www.bilibili.tv/id/space/1615330385" target="_blank" rel="noopener">Lihat contoh</a></article>
+        <article class="cat" style="--i:2"><h3>Post dan Blog</h3><p>Konten berbasis tulisan: review, rekomendasi, listicle, cerita pendek, tips dan trik, atau konten komunitas lewat fitur Post/Blog.</p></article>
+        <article class="cat" style="--i:3"><h3>Local Animation</h3><p>Video animasi pendek orisinal buatan kreator atau studio lokal Indonesia.</p><a href="https://www.bilibili.tv/id/space/2010904606" target="_blank" rel="noopener">Lihat contoh</a></article>
+        <article class="cat" style="--i:4"><h3>Dance</h3><p>Konten dance cover atau kreasi gerak yang berhubungan dengan budaya anime dan J-Pop.</p><a href="https://www.bilibili.tv/id/space/1727044016" target="_blank" rel="noopener">Lihat contoh</a></article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BRAND AMBASSADOR (placeholder) -->
+<section class="sec amb" id="ambassador" data-theme="blush">
+  <div class="wrap">
+    <h2 class="h2" data-split>Dipandu langsung oleh</h2>
+    <article class="amb__card" data-reveal>
+      <div class="amb__photo" aria-hidden="true"><span>Foto brand ambassador</span></div>
+      <div class="amb__body">
+        <h3 class="amb__name"><span class="ph" data-cfg="name">[Nama brand ambassador]</span></h3>
+        <p class="amb__role">Brand Ambassador Bstation Creator di <span class="ph" data-cfg="city">[Kota]</span></p>
+        <p class="amb__bio"><span class="ph" data-cfg="bio">[Tulis bio singkat: siapa kamu, konten apa yang kamu buat, dan kenapa creator baru bisa percaya.]</span></p>
+        <ul class="amb__links">
+          <li><a class="chip" href="#" data-cfg-link="instagram" data-placeholder-msg="Instagram brand ambassador belum diisi.">Instagram <span class="ph" data-cfg="instagram">[@username]</span></a></li>
+          <li><a class="chip" href="#" data-cfg-link="whatsapp" data-placeholder-msg="Nomor WhatsApp belum diisi.">WhatsApp <span class="ph" data-cfg="whatsapp">[nomor]</span></a></li>
+        </ul>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- SYARAT DAN DAFTAR -->
+<section class="sec join" id="daftar" data-theme="ink">
+  <div class="wrap">
+    <h2 class="h2 h2--center" data-split>Mulai perjalananmu hari ini</h2>
+    <p class="lead lead--center">Daftar, siapkan konten, dan penuhi syarat berikut sebelum menekan tombol daftar.</p>
+
+    <div class="join__grid" data-group>
+      <article class="req" data-reveal>
+        <h3>Jalur video</h3>
+        <ul class="req__list"><li>Upload minimal <b>4 video</b></li><li>Hashtag wajib, ketuk untuk menyalin:</li></ul>
+        <div class="tags"><button type="button" class="tag" data-tag="#TrendingHunt" data-sfx="none">#TrendingHunt</button><button type="button" class="tag" data-tag="#BstationGamers" data-sfx="none">#BstationGamers</button><button type="button" class="tag" data-tag="#Bestofbest" data-sfx="none">#Bestofbest</button></div>
+      </article>
+      <article class="req" data-reveal>
+        <h3>Jalur Post dan Blog</h3>
+        <ul class="req__list"><li>Minimal <b>2 Post</b> (3 gambar, 100 kata)</li><li>Minimal <b>2 Blog</b> (1 gambar, 300 kata)</li><li>Hashtag wajib, ketuk untuk menyalin:</li></ul>
+        <div class="tags"><button type="button" class="tag" data-tag="#TrendingHunt" data-sfx="none">#TrendingHunt</button><button type="button" class="tag" data-tag="#BstationGamers" data-sfx="none">#BstationGamers</button><button type="button" class="tag" data-tag="#Bestofbest" data-sfx="none">#Bestofbest</button></div>
+      </article>
+    </div>
+
+    <p class="join__info" data-reveal>Semua yang lolos akan diundang ke grup sesuai kategori dan mendapatkan hashtag sesuai kategori konten.</p>
+
+    <div class="join__ask" data-reveal>
+      <p>Ada pertanyaan? Hubungi langsung lewat WhatsApp.</p>
+      <a class="btn btn--sun" href="#" data-cfg-link="whatsapp" data-placeholder-msg="Nomor WhatsApp belum diisi.">Chat <span class="ph" data-cfg="whatsapp">[nomor WhatsApp]</span></a>
+    </div>
+
+    <div class="join__go" data-reveal>
+      <a class="btn btn--pink btn--xl" id="registerBtn" href="#" data-cfg-link="registerUrl" data-placeholder-msg="Link pendaftaran belum diisi." data-magnetic data-cursor="Daftar">Daftar sebagai creator</a>
+      <button class="refcode" id="refCode" type="button" data-sfx="none">Kode ref <b class="ph" data-cfg="refCode">[KODE REF]</b></button>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot" data-theme="ink">
+  <div class="wrap foot__row">
+    <p class="foot__who"><span class="ph" data-cfg="name">[Nama brand ambassador]</span>, Bstation Creator, <span class="ph" data-cfg="city">[Kota]</span>, Indonesia</p>
+    <button class="foot__top" id="toTop" type="button" data-sfx="none">Kembali ke atas</button>
+  </div>
+  <p class="foot__made">Dibuat dengan semangat untuk komunitas kreator Indonesia.</p>
+  <p class="foot__big" aria-hidden="true">CREATOR</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
