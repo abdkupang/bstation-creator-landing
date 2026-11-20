@@ -25,11 +25,11 @@
       }
     },
     // Item kecil yang bisa diseret (satu konstanta, ubah sesuai situs)
-    DRAG_SEL: '.btn, .tag, .soc, .chips li, .refcode, .badge, .step__i, .tip__icon, .reward__tag, .reward__num, .amb__role, .link, .foot__top, .foot__who, .cat > a',
+    DRAG_SEL: 'a, button, summary, h1, h2, h3, h4, p, li, img, .tag, .badge, .step__i, .tip__icon, .reward__tag, .reward__num, .reward__up, .amb__photo, .refcode, .ph, .lead, .note',
     // Kartu besar: cangkang jatuh kosong, isinya berhamburan
-    CARD_SEL: '.tip, .reward, .cat, .faq__item, .req, .step, .physical, .amb__card',
+    CARD_SEL: '.tip, .reward, .cat, .faq__item, .req, .step, .physical, .amb__card, .join__info, .join__ask, .tips__progress',
     // Bagian yang tidak boleh disentuh
-    NO_DRAG: '.nav, .menu, .hero__title, .sticker, .video, .mk, .mk-chat, .tabs, .toast, .curtain, .progress, .cursor, .cover, .skip, .tip__check',
+    NO_DRAG: '.mk, .mk-chat, .toast, .curtain, .progress, .cursor, .cover, .skip, .sticker, .video, .hero__title, .tabs__ind, .hero__scroll',
     // Section untuk komentar kontekstual (satu kali per section)
     sections: ['top', 'kenapa', 'tips', 'tutorial', 'hadiah', 'kategori', 'faq', 'ambassador', 'daftar'],
     sectionWords: [
@@ -42,6 +42,7 @@
   /* ================= Teks maskot (santai, ramah, bahasa Indonesia) ================= */
   const L = {
     greet: ['Hai kak! Aku Kilau, teman jelajahmu di sini.', 'Halo halo! Mau lihat-lihat apa dulu nih?', 'Ehh ada tamu! Selamat datang, kak.'],
+    busy: ['Eh, aku lagi kerja nih!', 'Sebentar, belum selesai beres-beres.', 'Hihi geli! Tunggu aku beres dulu.'],
     poke: ['Eh, geli!', 'Hihi, jangan colek terus dong.', 'Iya iya, aku di sini kok.', 'Ada yang bisa kubantu?', 'Tuk tuk tuk, siapa di sana?'],
     dizzy: ['Duh, kepalaku muter-muter...', 'Berhenti dong, pusing nih!', 'Bintang-bintangnya banyak banget...'],
     grab: ['Waaa! Aku diangkat!', 'Jangan tinggi-tinggi, kak!', 'Pegangan yang kuat ya!'],
@@ -202,11 +203,11 @@
 .mk-ghost.is-lift{filter:drop-shadow(0 12px 0 rgba(21,19,27,.28))}
 body.mk-dragging,body.mk-dragging *{-webkit-user-select:none!important;user-select:none!important;cursor:grabbing!important}
 html.mk-pending,html.mk-pending *{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
-.mk-chat{position:fixed;left:16px;bottom:16px;width:min(380px,calc(100vw - 32px));height:152px;padding:10px 12px 10px;display:grid;grid-template-rows:1fr auto auto;gap:6px;background:#fff;color:var(--mk-ink);border:3px solid var(--mk-ink);border-radius:22px;box-shadow:0 6px 0 var(--mk-ink);z-index:210;font:500 .88rem/1.35 "Plus Jakarta Sans",system-ui,sans-serif;transform:translateY(24px) scale(.96);opacity:0;visibility:hidden;transition:transform .4s cubic-bezier(.34,1.56,.64,1),opacity .2s,visibility 0s .4s}
+.mk-chat{position:fixed;left:16px;bottom:16px;width:min(380px,calc(100vw - 32px));padding:10px 12px;display:grid;gap:6px;background:#fff;color:var(--mk-ink);border:3px solid var(--mk-ink);border-radius:22px;box-shadow:0 6px 0 var(--mk-ink);z-index:400;font:500 .88rem/1.35 "Plus Jakarta Sans",system-ui,sans-serif;transform:translateY(24px) scale(.96);opacity:0;visibility:hidden;transition:transform .4s cubic-bezier(.34,1.56,.64,1),opacity .2s,visibility 0s .4s}
 .mk-chat.open{transform:none;opacity:1;visibility:visible;transition:transform .4s cubic-bezier(.34,1.56,.64,1),opacity .2s,visibility 0s}
 .mk-x{position:absolute;right:8px;top:6px;width:28px;height:28px;border-radius:10px;border:2.5px solid var(--mk-ink);background:#FFD43B;display:grid;place-items:center;padding:0;color:var(--mk-ink);cursor:pointer}
-.mk-log{overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;gap:3px;padding-right:34px;min-height:0}
-.mk-log p{margin:0;display:flex;gap:6px;align-items:flex-start;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.mk-log{max-height:104px;min-height:44px;overflow-y:auto;overscroll-behavior:contain;display:flex;flex-direction:column;gap:6px;padding-right:36px}
+.mk-log p{margin:0;overflow-wrap:anywhere}.mk-log a{color:var(--mk-pink);font-weight:800}
 .mk-log .u{color:#6b6677;font-weight:600}
 .mk-log .b{font-weight:700}
 .mk-log .b .mk-ico{color:var(--mk-pink);margin-right:5px}
@@ -218,7 +219,7 @@ html.mk-pending,html.mk-pending *{-webkit-user-select:none;user-select:none;-web
 .mk-form input{flex:1;min-width:0;height:36px;padding:0 12px;border:2.5px solid var(--mk-ink);border-radius:12px;font:600 16px "Plus Jakarta Sans",system-ui,sans-serif;color:var(--mk-ink);background:#fff}
 .mk-form input:focus{outline:3px solid #2DB4FF;outline-offset:1px}
 .mk-form button{width:40px;height:36px;border:2.5px solid var(--mk-ink);border-radius:12px;background:var(--mk-pink);color:#fff;display:grid;place-items:center;padding:0;cursor:pointer}
-@media (max-width:640px){.mk-chat{left:0;right:0;bottom:0;width:100%;border-radius:22px 22px 0 0;border-bottom:0;box-shadow:0 -4px 0 var(--mk-ink);padding-bottom:calc(10px + env(safe-area-inset-bottom));height:calc(152px + env(safe-area-inset-bottom))}}
+@media (max-width:640px){.mk-chat{left:0;right:0;bottom:0;width:100%;border-radius:22px 22px 0 0;border-bottom:0;box-shadow:0 -4px 0 var(--mk-ink);padding-bottom:calc(10px + env(safe-area-inset-bottom))}}
 .mk-music{width:44px;height:44px;border-radius:14px;border:3px solid var(--mk-ink);background:#fff;color:var(--mk-ink);display:grid;place-items:center;position:relative;padding:0;cursor:pointer;transition:transform .3s cubic-bezier(.34,1.56,.64,1),background .2s}
 .mk-music:hover{transform:rotate(8deg) scale(1.08)}
 .mk-music .mk-ico{width:22px;height:22px}
@@ -395,6 +396,8 @@ html.mk-pending,html.mk-pending *{-webkit-user-select:none;user-select:none;-web
 @keyframes mkDance{from{transform:rotate(-7deg) translateY(0)}to{transform:rotate(7deg) translateY(-6px)}}
 .mk[data-state=hidden]{visibility:hidden}
 .mk-svg .m-all{will-change:transform}
+@media (max-width:520px){.nav__actions{gap:6px}.nav__actions .sound,.nav__actions .burger,.mk-music{width:40px;height:40px;border-radius:12px}.mk-music .mk-ico{width:20px;height:20px}.nav__name{font-size:1rem}}
+@media (max-width:380px){.nav__actions .sound,.nav__actions .burger,.mk-music{width:36px;height:36px}.nav__name{font-size:.92rem}}
 `;
 
   const M = { x: -200, y: -200, vx: 0, vy: 0, av: 0, ang: 0, sq: 0, sqv: 0, spin: 0, spinV: 0, dir: -1, state: 'hidden', W: 88, H: 118, bounces: 0, px: 0, tw: null, fl: null, wk: null, perch: null, seen: false, mx: 0, my: 0 };
@@ -507,7 +510,7 @@ html.mk-pending,html.mk-pending *{-webkit-user-select:none;user-select:none;-web
         if (k >= 1) { M.tw = null; M.spin = 0; T.res(true); }
       } else if (st === 'fly' && M.fl) {
         const F = M.fl, tx = F.gx(), ty = F.gy(), px = M.x, k = Math.min(1, dt * 5.5);
-        M.x = clamp(M.x + (tx - M.x) * k, minX(), maxX()); M.y = clamp(M.y + (ty - M.y) * k, 4, floor());
+        M.x = clamp(M.x + (tx - M.x) * k, minX(), maxX()); M.y = clamp(M.y + (ty - M.y) * k, 4, innerHeight - S.bottomInset - M.H * .55);
         const vx = (M.x - px) / Math.max(dt, .001);
         if (Math.abs(tx - M.x) > 8) M.dir = tx > M.x ? 1 : -1;
         M.ang += (clamp(vx * .02, -14, 14) - M.ang) * Math.min(1, dt * 8);
@@ -567,6 +570,7 @@ html.mk-pending,html.mk-pending *{-webkit-user-select:none;user-select:none;-web
     if (M.state === 'sleep') return wakeUp();
     if (taps.length >= 5) { taps = []; return dizzy(2600); }
     squash(4); A.sfx('poke'); setFace('happy', 900);
+    if (S.tidying) { say(line('busy'), 2200, 'smile'); return; }
     say(line('poke'), 2200, 'smile');
     if (taps.length === 1 && !S.chatOpen && M.state !== 'drag') K.openChat(true);
   }
@@ -704,14 +708,17 @@ html.mk-pending,html.mk-pending *{-webkit-user-select:none;user-select:none;-web
     for (let n = el; n && n !== document.body; n = n.parentElement) { const p = getComputedStyle(n).position; if (p === 'fixed' || p === 'sticky') return true; }
     return false;
   }
+  const TEXTY = 'h1,h2,h3,h4,p,li,summary,img,.lead,.note,.reward__up';
   function findTarget(t) {
     if (!(t instanceof Element) || t.closest(CONFIG.NO_DRAG)) return null;
     const sizeOK = (el, card) => { const r = el.getBoundingClientRect(); return r.width >= 14 && r.height >= 14 && r.width <= innerWidth * .96 && r.height <= (card ? 640 : 220); };
-    let el = t.closest(CONFIG.DRAG_SEL);
-    if (el && sizeOK(el, false) && !inFixed(el)) return { el, kind: 'item' };
-    el = t.closest(CONFIG.CARD_SEL);
-    if (el && sizeOK(el, true) && !inFixed(el)) return { el, kind: 'card' };
-    return null;
+    const card = t.closest(CONFIG.CARD_SEL), okCard = card && sizeOK(card, true) && !card.__mk && !card.closest('.mk-ghost') ? card : null;
+    const el = t.closest(CONFIG.DRAG_SEL);
+    if (el && !el.__mk && sizeOK(el, false)) {
+      if (okCard && el.matches(TEXTY)) return { el: okCard, kind: 'card' };
+      return { el, kind: 'item' };
+    }
+    return okCard ? { el: okCard, kind: 'card' } : null;
   }
   function inlineStyles(src, dst) {
     const cs = getComputedStyle(src); let t = '';
@@ -722,6 +729,7 @@ html.mk-pending,html.mk-pending *{-webkit-user-select:none;user-select:none;-web
     for (let i = 0; i < a.length && i < b.length; i++) inlineStyles(a[i], b[i]);
   }
   function makeGhost(el, shell) {
+    if (el.__mk) return null;
     const r = el.getBoundingClientRect(), g = el.cloneNode(true);
     inlineStyles(el, g);
     const disp = getComputedStyle(el).display;
@@ -731,7 +739,7 @@ html.mk-pending,html.mk-pending *{-webkit-user-select:none;user-select:none;-web
     document.body.appendChild(g);
     const gr = g.getBoundingClientRect();
     const G = { el, g, w: r.width, h: r.height, x: r.left + SX(), y: r.top + SY(), bx: gr.left + SX(), by: gr.top + SY(), vx: 0, vy: 0, rot: 0, av: 0, st: 'drag', shell: !!shell, offX: 0, offY: 0, prevVis: el.style.visibility, pts: [], t0: 0 };
-    g.__G = G; el.style.visibility = 'hidden';
+    g.__G = G; el.__mk = G; el.setAttribute('data-mk-h', '1'); el.style.visibility = 'hidden';
     IT.list.push(G); setPos(G); return G;
   }
   const setPos = G => { G.g.style.transform = `translate(${(G.x - G.bx).toFixed(1)}px,${(G.y - G.by).toFixed(1)}px) rotate(${G.rot.toFixed(1)}deg)`; };
@@ -750,11 +758,13 @@ html.mk-pending,html.mk-pending *{-webkit-user-select:none;user-select:none;-web
   }
   function removeGhost(G, restored) {
     const i = IT.list.indexOf(G); if (i >= 0) IT.list.splice(i, 1);
-    const r = G.g.getBoundingClientRect(); G.g.remove(); G.el.style.visibility = G.prevVis || '';
+    const r = G.g.getBoundingClientRect(); G.g.remove(); G.el.style.visibility = G.prevVis || ''; delete G.el.__mk; G.el.removeAttribute('data-mk-h'); repairHidden();
     if (restored) { sparkle(r.left + r.width / 2, r.top + r.height / 2, 6); A.sfx('ding', 120); }
   }
+  function repairHidden() { $$('[data-mk-h]').forEach(n => { if (!n.__mk) { n.style.visibility = ''; n.removeAttribute('data-mk-h'); } }); }
+  setInterval(repairHidden, 2000);
   function cardPieces(card) {
-    const all = $$('h2,h3,h4,p,li,summary,.tag,.badge,svg,img,.step__i,.tip__icon,.reward__num,.reward__tag,a,button', card);
+    const all = $$('h2,h3,h4,p,li,summary,.tag,.badge,svg,img,.step__i,.tip__icon,.reward__num,.reward__tag,.reward__up,.step > b,.step > span,a,button', card).filter(n => !n.__mk);
     const out = all.filter(n => !all.some(o => o !== n && o.contains(n)) && !n.closest('details:not([open]) > :not(summary)'));
     return out.filter(n => { const r = n.getBoundingClientRect(); return r.width > 8 && r.height > 8; }).slice(0, 9);
   }
@@ -802,17 +812,18 @@ html.mk-pending,html.mk-pending *{-webkit-user-select:none;user-select:none;-web
   function begin(p) {
     let G;
     if (p.G) { G = p.G; G.g.style.pointerEvents = 'none'; }
-    else if (p.kind === 'item') G = makeGhost(p.el, false);
+    else if (p.kind === 'item') { G = makeGhost(p.el, false); if (!G) { cancelPend(); return; } }
     else {
-      G = makeGhost(p.el, true);
+      G = makeGhost(p.el, true); if (!G) { cancelPend(); return; }
       const cx = G.x + G.w / 2, cy = G.y + G.h / 2;
       cardPieces(p.el).forEach((n, i) => {
-        const q = makeGhost(n, false), qx = q.x + q.w / 2 - cx, dir = qx === 0 ? (i % 2 ? 1 : -1) : Math.sign(qx);
+        const q = makeGhost(n, false); if (!q) return;
+        const qx = q.x + q.w / 2 - cx, dir = qx === 0 ? (i % 2 ? 1 : -1) : Math.sign(qx);
         q.st = 'fall'; q.vx = dir * rand(120, 520); q.vy = -rand(380, 820); q.av = rand(-360, 360); q.g.classList.add('is-lift');
       });
       A.sfx('spark'); say(line('scatter'), 2800, 'mess');
     }
-    G.st = 'drag'; G.offX = p.cx + SX() - G.x; G.offY = p.cy + SY() - G.y; G.pts = [{ x: p.cx, y: p.cy, t: now() }];
+    IT.rel = now(); G.st = 'drag'; G.offX = p.cx + SX() - G.x; G.offY = p.cy + SY() - G.y; G.pts = [{ x: p.cx, y: p.cy, t: now() }];
     G.g.classList.add('is-lift'); IT.cur = G; IT.pend = null; clearTimeout(IT.timer);
     document.documentElement.classList.remove('mk-pending'); document.body.classList.add('mk-dragging');
     A.sfx('grab'); setFace('happy', 800); startGhostLoop(); S.lastInput = now(); wakeUp();
@@ -850,7 +861,7 @@ html.mk-pending,html.mk-pending *{-webkit-user-select:none;user-select:none;-web
     if (IT.pend && e.pointerId === IT.pend.pid) cancelPend();
     const G = IT.cur; if (!G) return;
     IT.cur = null; document.body.classList.remove('mk-dragging');
-    IT.suppress = now() + 350;
+    IT.suppress = now() + 350; IT.rel = now();
     const pts = G.pts, a = pts[0], b = pts[pts.length - 1], dt = Math.max(.016, (b.t - a.t) / 1000);
     const h = homePos(G);
     if (Math.hypot(G.x - h.x, G.y - h.y) < 42) { A.sfx('pop'); goHome(G); return; }
@@ -863,7 +874,7 @@ html.mk-pending,html.mk-pending *{-webkit-user-select:none;user-select:none;-web
     document.addEventListener('pointermove', onMove, { passive: true });
     document.addEventListener('pointerup', onUp, true);
     document.addEventListener('pointercancel', e => { if (IT.cur) onUp(e); else cancelPend(); }, true);
-    document.addEventListener('touchmove', e => { if (IT.cur) e.preventDefault(); }, { passive: false });
+    document.addEventListener('touchmove', e => { if (IT.cur && IT.cur.st === 'drag') e.preventDefault(); }, { passive: false });
     document.addEventListener('contextmenu', e => { if (IT.pend || IT.cur) e.preventDefault(); });
     document.addEventListener('selectstart', e => { if (IT.pend || IT.cur) e.preventDefault(); });
     document.addEventListener('dragstart', e => { if (e.target instanceof Element && (findTarget(e.target) || e.target.closest('.mk-ghost'))) e.preventDefault(); });
@@ -871,12 +882,14 @@ html.mk-pending,html.mk-pending *{-webkit-user-select:none;user-select:none;-web
   }
 
   /* ---- rapikan: antrean, pelacakan langsung, scroll otomatis ---- */
+  let lastUserScroll = 0;
+  ['wheel', 'touchstart', 'touchmove', 'keydown'].forEach(ev => addEventListener(ev, () => { if (!IT.cur) lastUserScroll = now(); }, { passive: true }));
   function autoScroll(getY, lo, hi) {
     let on = true;
     (function f() {
       if (!on) return;
       const vh = innerHeight - S.bottomInset, vy = getY() - SY();
-      if (vy < vh * lo || vy > vh * hi) {
+      if ((vy < vh * lo || vy > vh * hi) && now() - lastUserScroll > 900) {
         const d = vy - vh * .42, mx = document.documentElement.scrollHeight - innerHeight;
         const ny = clamp(SY() + Math.sign(d) * Math.min(Math.abs(d) * .12 + 3, 80), 0, mx);
         window.scrollTo({ top: ny, behavior: 'instant' });
@@ -906,14 +919,14 @@ html.mk-pending,html.mk-pending *{-webkit-user-select:none;user-select:none;-web
       for (const G of queue) {
         if (tok !== S.tidyTok) return false;
         if (!IT.list.includes(G)) continue;
-        let stop = autoScroll(() => G.y + G.h / 2, .12, .8);
+        let stop = autoScroll(() => G.y + G.h / 2, .08, .85);
         await flyTo(() => G.x - SX() + G.w / 2 - M.W / 2, () => G.y - SY() + G.h / 2 - M.H * .62, 14, 6500);
         stop(); if (tok !== S.tidyTok) return false;
         G.st = 'carried'; G.g.style.pointerEvents = 'none'; G.g.classList.add('is-lift'); A.sfx('grab'); squash(3); startGhostLoop();
         if (n === 0 && Math.random() < .6) say(line('carry'), 1800, 'jump');
         const hc = () => homePos(G);
-        stop = autoScroll(() => hc().y + hc().h / 2, .2, .64);
-        await flyTo(() => hc().x + hc().w / 2 - M.W / 2 - SX(), () => hc().y + hc().h / 2 - SY() - M.H * .62, 16, 9000);
+        stop = autoScroll(() => hc().y + hc().h / 2, .12, .72);
+        await flyTo(() => hc().x + hc().w / 2 - M.W / 2 - SX(), () => hc().y + hc().h / 2 - SY() - M.H * .62, 16, 6500);
         stop(); if (tok !== S.tidyTok) return false;
         goHome(G); await until(() => !IT.list.includes(G), 1200); n++;
         if (n % 3 === 0 && queue.length > 3) say(line('cheer'), 1500, 'check');
@@ -927,8 +940,14 @@ html.mk-pending,html.mk-pending *{-webkit-user-select:none;user-select:none;-web
   }
   // rapikan otomatis jika dibiarkan berantakan
   setInterval(() => {
-    if (IT.list.length && !S.tidying && !S.chatOpen && !IT.cur && !S.dragMascot && now() - S.lastInput > 25000 && IT.list.every(G => G.st === 'rest')) tidyAll();
-  }, 4000);
+    if (IT.list.length && !S.tidying && !IT.cur && !S.dragMascot && !IT.pend && now() - (IT.rel || 0) > 3200 && IT.list.every(G => G.st === 'rest') && M.state !== 'hidden') tidyAll();
+  }, 700);
+  // pengaman: lepaskan seretan yang macet agar scroll tidak terkunci
+  function forceRelease() { if (IT.cur) onUp({ pointerId: undefined }); cancelPend(); document.body.classList.remove('mk-dragging'); }
+  addEventListener('blur', forceRelease);
+  ['touchend', 'touchcancel'].forEach(ev => addEventListener(ev, e => { if (IT.cur && (!e.touches || e.touches.length === 0)) setTimeout(forceRelease, 30); }, { passive: true }));
+  document.addEventListener('visibilitychange', () => { if (document.hidden) forceRelease(); });
+  setInterval(() => { if (IT.cur && now() - (IT.cur.pts[IT.cur.pts.length - 1] || { t: now() }).t > 4000) forceRelease(); }, 1000);
 
   /* ================= Interaksi khas situs: acak kategori, centang tips ================= */
   const smoothTo = el => { try { el.scrollIntoView({ behavior: RM ? 'auto' : 'smooth', block: 'start' }); } catch (e) { el.scrollIntoView(); } };
@@ -987,7 +1006,8 @@ html.mk-pending,html.mk-pending *{-webkit-user-select:none;user-select:none;-web
   function addMsg(who, html) {
     const p = document.createElement('p'); p.className = who;
     p.innerHTML = who === 'b' ? `<span>${icon('chat')}${html}</span>` : `<span>${html}</span>`;
-    CH.log.appendChild(p); while (CH.log.children.length > 3) CH.log.firstChild.remove();
+    CH.log.appendChild(p); while (CH.log.children.length > 4) CH.log.firstChild.remove();
+    CH.log.scrollTop = CH.log.scrollHeight; if (S.chatOpen) setTimeout(setInset, 30);
   }
   function talkOnly(ms) { clearInterval(B.talk); B.talk = setInterval(() => E.el.classList.toggle('open'), 130); setTimeout(() => { clearInterval(B.talk); E.el.classList.remove('open'); }, ms); }
   const norm = s => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/\s+/g, ' ').trim();
@@ -1047,7 +1067,9 @@ html.mk-pending,html.mk-pending *{-webkit-user-select:none;user-select:none;-web
       await wait(280);
       let r; try { r = await respond(txt); } catch (e) { r = 'Ups, ada yang error. Coba lagi ya.'; }
       const html = typeof r === 'string' ? esc(r) : r.html;
-      addMsg('b', html); A.sfx('chat'); talkOnly(1200);
+      addMsg('b', html); A.sfx('chat');
+      const plain = typeof r === 'string' ? r : 'Kontaknya sudah kutaruh di obrolan, ya. Tinggal ketuk!';
+      say(plain, clamp(2400 + plain.length * 55, 3200, 9000), 'chat');
     };
     $('form', el).addEventListener('submit', e => { e.preventDefault(); run(CH.input.value); });
     el.addEventListener('click', e => {
