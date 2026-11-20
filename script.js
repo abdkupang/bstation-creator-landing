@@ -98,13 +98,16 @@
     };
 
     return {
-      init, note, tone,
+      init, note, tone, noise,
       play(name) { (bank[name] || bank.click)(); },
       get muted() { return muted; },
       setMuted(v) { muted = !!v; },
-      get running() { return !!ctx && ctx.state === 'running'; }
+      get running() { return !!ctx && ctx.state === 'running'; },
+      get ctx() { return ctx; },
+      get master() { return master; }
     };
   })();
+  window.BSAudio = audio; // dipakai maskot (mascot.js): satu AudioContext, satu tombol mute
   const sfx = n => audio.play(n);
 
   /* ---------- 3. UTIL ---------- */
@@ -244,7 +247,7 @@
       document.body.appendChild(r);
       setTimeout(() => r.remove(), 650);
     }
-    if (!e.target.closest(INTERACTIVE + ', [data-sticker], .ch, .video')) sfx('tap');
+    if (!e.target.closest(INTERACTIVE + ', [data-sticker], .ch, .video, .mk, .mk-chat')) sfx('tap');
   }, { passive: true });
   document.addEventListener('focusin', e => {
     if (e.target.matches && e.target.matches(':focus-visible')) sfx('tick');
