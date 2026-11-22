@@ -18,8 +18,8 @@
     whatsapp: '082196481822',
     facebook: 'https://www.facebook.com/share/1DQN53G2sT/',
     tiktok: '@abdkupang',
-    refCode: '',     // kode referral pendaftaran
-    registerUrl: '', // link daftar creator (sertakan kode ref di link)
+    refCode: '3E7CCE65',     // kode referral pendaftaran
+    registerUrl: 'https://rsbcreatormanager.com?ref=3E7CCE65', // link daftar creator (sertakan kode ref di link)
     proofUrl: ''     // link bukti hadiah di Instagram
   };
 
