@@ -11,9 +11,9 @@
      menampilkan placeholder kuning dan tombol terkait memberi tahu
      bahwa datanya belum diisi. */
   const CFG = {
-    name: '',        // contoh: 'Nama Kamu'
-    city: '',        // contoh: 'Makassar'
-    bio: '',         // bio singkat
+    name: 'abdkupang', // nama brand ambassador
+    city: 'Makassar',
+    bio: 'Mahasiswa Teknik Informatika di Makassar yang suka membangun website dan aplikasi web. Aku siap bantu kamu yang baru mulai di Bstation Creator, dari cara daftar sampai tips upload.',
     instagram: '@abdkupang_',
     whatsapp: '082196481822',
     facebook: 'https://www.facebook.com/share/1DQN53G2sT/',
