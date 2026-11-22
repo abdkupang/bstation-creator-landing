@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 72" width="72" height="72" role="img" aria-label="Logo Bstation Creator">
+  <rect x="10" y="18" width="52" height="52" rx="16" fill="#15131B"/>
+  <rect x="4" y="12" width="52" height="52" rx="16" fill="#FF4F81" stroke="#15131B" stroke-width="4"/>
+  <path d="M24 27.5L43 38l-19 10.5z" fill="#fff" stroke="#15131B" stroke-width="3.5" stroke-linejoin="round"/>
+  <path d="M58 2l3.2 7.8L69 13l-7.8 3.2L58 24l-3.2-7.8L47 13l7.8-3.2z" fill="#FFD43B" stroke="#15131B" stroke-width="3" stroke-linejoin="round"/>
+</svg>
